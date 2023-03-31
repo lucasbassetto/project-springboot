@@ -1,5 +1,6 @@
 package com.project.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -14,15 +15,16 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT") // Garantir que o instante seja mostrado no Json no formado de String ISO 8601
     private Instant moment;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
+    @ManyToOne // relação muitos para um (pedido e usuário)
+    @JoinColumn(name = "client_id") // criação da foreing key
     private User client;
 
     public Order() {
     }
-
     public Order(Long id, Instant moment, User client) {
         this.id = id;
         this.moment = moment;

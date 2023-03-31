@@ -1,5 +1,6 @@
 package com.project.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -21,7 +22,8 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
-    @OneToMany(mappedBy = "client")
+    @JsonIgnore
+    @OneToMany(mappedBy = "client") // Relação um para muitos (um cliente tem muitos pedidos). Pedidos são mapeados pelo atributo client
     private List<Order> orders = new ArrayList<>();
 
     public User() {
