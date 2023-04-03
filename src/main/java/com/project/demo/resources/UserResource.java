@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@RestController // Implementação do Controlador Rest
 @RequestMapping(value = "/users")
 public class UserResource {
 
     @Autowired
     private UserService service;
-    @GetMapping
+    @GetMapping // Endpoint para acessar os usuários
     public ResponseEntity<List<User>> findAll() {
         List<User> list = service.findAll();
-        return ResponseEntity.ok().body(list);
+        return ResponseEntity.ok().body(list); // Retornar a resposta com sucesso no HTTP e o corpo da resposta.
     }
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> findById(@PathVariable Long id) {
