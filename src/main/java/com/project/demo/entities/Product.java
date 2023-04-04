@@ -1,5 +1,6 @@
 package com.project.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -20,7 +21,8 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-    @Transient
+    @ManyToMany
+    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn (name = "category_id")) // criação da tabela associativa e chaves estrangeiras
     private Set<Category> categories = new HashSet<>(); // Utiliza-se SET (conjunto) para garantir que não haverá um produto com mais de 1 ocorrência na mesma categoria
 
     public Product() {
